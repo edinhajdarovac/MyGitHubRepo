@@ -1,0 +1,22 @@
+employees	/insert 50	/api	/historiy
+	name				/nn /unique
+	email				/nn /lower /unique
+	country		 vc100	/nn /values US, US, US, US, US, Canada, Mexico
+	employe_type vc30   /nn /check full time, part time
+	approver 	 vc255  /nn /index /value tbd
+	timecards 		/api /auditcols	/history	/insert 200
+		status 		/check SUBMITTED, APPROVED, DECELINED /default SUBMITTED
+		week_of 	date /nn
+		sunday 		int  /default 0 /between 0 and 24
+		monday 		int  /default 0 /between 0 and 24
+		tuesday 	int  /default 0 /between 0 and 24
+		wednesday 	int  /default 0 /between 0 and 24
+		thursday 	int  /default 0 /between 0 and 24
+		friday 		int  /default 0 /between 0 and 24
+		saturday 	int  /default 0 /between 0 and 24
+		comments
+		confirmation_code vc50	/values null
+
+view employee_timecards employees timecards
+
+select avg(total_hours) from employee_timecards t where t.employee_id = e.id) avg_hours from employees e
